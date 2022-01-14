@@ -12,7 +12,7 @@ export const Order = (props) => {
     return (
         <View style={styles.orderItem}>
           <View style={styles.summary}>
-              <Text style={styles.amount}>${props.order.totalAmount}</Text>
+              <Text style={styles.amount}>${props.order.totalAmount.toFixed(2)}</Text>
               <Text styles={styles.date}>{props.order.readableDate}</Text>
           </View>
           

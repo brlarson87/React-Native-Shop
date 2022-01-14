@@ -7,6 +7,7 @@ import Cart from '../screens/shop/CartScreen';
 import OrdersScreen from '../screens/shop/OrdersScreen';
 
 import UserProductsScreen from '../screens/user/UserProductsScreen';
+import EditProductsScreen from '../screens/user/EditProductsScreen';
 
 import Colors from '../constants/Colors';
 
@@ -75,6 +76,13 @@ export const UserProductsNavigator = () => {
           component={UserProductsScreen}
           options={{
             title: 'Your Products'
+          }}
+        />
+        <Stack.Screen 
+          name="Edit Product"
+          component={EditProductsScreen}
+          options={{
+            title: "Edit Product"
           }}
         />
     </Stack.Navigator>

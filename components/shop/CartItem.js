@@ -26,7 +26,7 @@ const CartItems = (props) => {
                 {trash && 
                     <TouchableOpacity onPress={onRemoveFromCart} style={styles.deleteButton}>
                     <Ionicons 
-                        name={Platform.Os === 'android' ? "md-trash" : "ios-trash"} 
+                        name={Platform.OS === 'android' ? "md-trash" : "ios-trash"} 
                         size={23}
                         color="red"
                     />

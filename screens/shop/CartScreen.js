@@ -29,7 +29,7 @@ const CartScreen = ({ navigation }) => {
     return transformedCartItems.sort((a, b) => a.productId > b.productId ? 1 : -1);
   });
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); 
 
   let itemsToRender = (
     <View style={styles.emptyMessage}>
@@ -61,7 +61,7 @@ const CartScreen = ({ navigation }) => {
   return (
     <View style={styles.screen}>
       <View style={styles.summary}>
-        <Text style={styles.total}>Total: <Text style={styles.number}>${cartTotal.toFixed(2)}</Text></Text>
+        <Text style={styles.total}>Total: <Text style={styles.number}>${Math.round(cartTotal.toFixed(2) * 100) / 100}</Text></Text>
         <Button 
           title="Order Now" 
           color={Colors.accent} 

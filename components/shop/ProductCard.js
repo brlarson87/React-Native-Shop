@@ -3,12 +3,11 @@ import { Text,
          Image, 
          StyleSheet,
          View,
-         Button,
          TouchableOpacity,
          TouchableNativeFeedback,
          Platform
         } from 'react-native';
-import Colors from '../../constants/Colors'; 
+
 
 const ProductCard = (props) => {
     let Touch = TouchableOpacity;
@@ -17,7 +16,7 @@ const ProductCard = (props) => {
     // if(Platform.OS === 'android' && Platform.Version >= 21) {
     //     Touch = TouchableNativeFeedback;
     // }
-    const {title, price, image, onViewDetail, onAddToCart, user} = props;
+    const {title, price, image} = props;
 
     
         
@@ -25,23 +24,22 @@ const ProductCard = (props) => {
             <View style={styles.card}>
                 <View style={styles.touchableCmp}>
                     <Touch 
-                        onPress={onViewDetail} 
+                        onPress={() => {}} 
                         useForeground
                         style={{ alignItems: 'center'}} >
-                        <Image source={{ uri: image }} style={user ? styles.userImage : styles.image} />
+                        <Image source={{ uri: image }} style={styles.image} />
 
-                        <View style={user ? styles.userDecription : styles.descriptionContain}>
+                        <View style={styles.descriptionContain}>
                             <Text style={styles.title}>{title}</Text>
                             <Text style={styles.price}>${price}</Text>
                         </View>
 
-                        {!user && 
-                            <View 
-                                style={ styles.buttonsContainer }>
-                                <Button color={Colors.primary} title="View Details" onPress={onViewDetail} />
-                                <Button color={Colors.primary} title="Add To Cart" onPress={onAddToCart} />
-                            </View>
-                        }
+                      
+                        <View 
+                            style={ styles.buttonsContainer }>
+                            {props.children}
+                        </View>
+                        
 
                     </Touch>
                 </View>
@@ -77,11 +75,11 @@ const styles = StyleSheet.create({
     },  
     buttonsContainer: {
         flexDirection: 'row',
-        width: '100%',
+        width: '90%',
         height: '18%',
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
     },
     descriptionContain: {
         justifyContent: 'center',

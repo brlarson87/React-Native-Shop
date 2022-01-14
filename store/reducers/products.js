@@ -1,4 +1,7 @@
 import PRODUCTS from '../../data/dummy-data';
+import { CREATE__PRODUCT, DELETE__PRODUCT, EDIT__PRODUCT } from '../actions/products';
+
+import Product from "../../models/product";
 
 const initialState = {
     availableProducts: PRODUCTS,
@@ -6,5 +9,59 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
+    const { type, payload } = action;
+
+    switch(type) {
+        case DELETE__PRODUCT:
+            return {
+                ...state,
+                userProducts: state.userProducts.filter(product => product.id !== payload),
+                availableProducts: state.availableProducts.filter(product => product.id !== payload)
+            }
+        case CREATE__PRODUCT:
+            
+            const newProd = new Product(
+                new Date().toString(), 
+                'u1', 
+                payload.title, 
+                payload.imageUrl, 
+                payload.description, 
+                payload.price
+            );
+
+            return {
+                ...state,
+                availableProducts: state.availableProducts.concat(newProd),
+                userProducts: state.userProducts.concat(newProd)
+            }
+        case EDIT__PRODUCT:
+            const { id } = payload;
+            const productIndex = state.userProducts.findIndex(prod => prod.id === id);
+            const availableProductIndex = state.availableProducts.findIndex(prod => prod.id === id);
+
+            const updatedProduct = new Product(
+                payload.id, 
+                state.userProducts[productIndex].ownerId, 
+                payload.title, 
+                payload.imageUrl, 
+                payload.description, 
+                state.userProducts[productIndex].price
+            );
+
+            const updatedUserProducts = [...state.userProducts];
+            updatedUserProducts[productIndex] = updatedProduct;
+
+            
+            const updatedAvailableProducts = [...state.availableProducts];
+            updatedAvailableProducts[availableProductIndex] = updatedProduct;
+
+
+            return {
+                ...state,
+                availableProducts: updatedAvailableProducts,
+                userProducts: updatedUserProducts
+            }
+
+    }
     return state;
 };
