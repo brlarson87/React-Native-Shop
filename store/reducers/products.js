@@ -1,5 +1,5 @@
 import PRODUCTS from '../../data/dummy-data';
-import { CREATE__PRODUCT, DELETE__PRODUCT, EDIT__PRODUCT } from '../actions/products';
+import { CREATE__PRODUCT, DELETE__PRODUCT, EDIT__PRODUCT, SET__PRODUCTS } from '../actions/products';
 
 import Product from "../../models/product";
 
@@ -12,6 +12,13 @@ export default (state = initialState, action) => {
     const { type, payload } = action;
 
     switch(type) {
+        case SET__PRODUCTS: {
+            return {
+                ...state,
+                availableProducts: payload,
+                userProducts: payload.filter(prod => prod.ownerId === 'u1')
+            }
+        }
         case DELETE__PRODUCT:
             return {
                 ...state,
@@ -21,7 +28,7 @@ export default (state = initialState, action) => {
         case CREATE__PRODUCT:
             
             const newProd = new Product(
-                new Date().toString(), 
+                payload.id, 
                 'u1', 
                 payload.title, 
                 payload.imageUrl, 
