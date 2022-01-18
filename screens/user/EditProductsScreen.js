@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect, useCallback, useReducer } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useCallback, useReducer } from 'react';
 import {Text, 
         View, 
         ScrollView, 
