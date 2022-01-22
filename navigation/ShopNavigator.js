@@ -1,6 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
+
 import ProductsOverviewScreen from '../screens/shop/ProductsOverviewScreen';
 import ProductDetailScreen from '../screens/shop/ProductDetailScreen';
 import Cart from '../screens/shop/CartScreen';
@@ -10,6 +11,7 @@ import UserProductsScreen from '../screens/user/UserProductsScreen';
 import EditProductsScreen from '../screens/user/EditProductsScreen';
 
 import Colors from '../constants/Colors';
+import AuthScreen from '../screens/user/AuthScreen';
 
 const Stack = createStackNavigator();
 
@@ -85,6 +87,20 @@ export const UserProductsNavigator = () => {
             title: "Edit Product"
           }}
         />
+    </Stack.Navigator>
+  )
+}
+
+export const AuthNavigator = () => {
+  return (
+    <Stack.Navigator screenOptions={screenOptions}>
+      <Stack.Screen 
+        name="Login"
+        component={AuthScreen}
+        options={{
+          title: 'Login'
+        }}
+      />
     </Stack.Navigator>
   )
 }
