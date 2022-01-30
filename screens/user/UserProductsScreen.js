@@ -1,5 +1,5 @@
 import React, { useLayoutEffect } from 'react';
-import { StyleSheet, FlatList, Button, Alert } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Button, Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import {HeaderButtons, Item } from 'react-navigation-header-buttons'
 import CustomHeaderButton from '../../components/UI/HeaderButton'
@@ -48,6 +48,14 @@ const UserProductsScreen = ({ navigation }) => {
       navigation.navigate('Edit Product', { productId: id })
     };
 
+    if(products.length === 0) {
+      return (
+        <View style={styles.center}>
+          <Text>No products...</Text>
+        </View>
+      )
+    }
+
     return (
         <FlatList 
             data={products}
@@ -73,7 +81,11 @@ const UserProductsScreen = ({ navigation }) => {
 }
 
 const styles = StyleSheet.create({
-
+  center: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
 });
 
 export default UserProductsScreen;

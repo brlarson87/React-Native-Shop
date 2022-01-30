@@ -81,7 +81,7 @@ const AuthScreen = props => {
       try {
         await dispatch(action);
       } catch (error) {
-        setErr(err.message)  
+        setErr(error.message)  
       }
       setIsLoading(false);
   };

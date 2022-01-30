@@ -12,6 +12,7 @@ import EditProductsScreen from '../screens/user/EditProductsScreen';
 
 import Colors from '../constants/Colors';
 import AuthScreen from '../screens/user/AuthScreen';
+import StartupScreen from '../store/StartupScreen';
 
 const Stack = createStackNavigator();
 
@@ -90,6 +91,10 @@ export const UserProductsNavigator = () => {
     </Stack.Navigator>
   )
 }
+
+// export const logoutNavigator = () => {
+
+// }
 
 export const AuthNavigator = () => {
   return (

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Platform } from 'react-native';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
@@ -24,7 +23,7 @@ const rootReducer = combineReducers({
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
-const ACCESS_TOKEN = false;
+const ACCESS_TOKEN = rootReducer.auth.token;
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -48,8 +47,7 @@ export default App = (props) => {
   return (
     <Provider store={store}>
      <NavigationContainer>
-        {rootReducer.auth.auth && <DrawerNavigator /> }
-        {!rootReducer.auth.auth && <AuthNavigator />}
+        {isAuth ? (<DrawerNavigator />) : (<AuthNavigator />)}
      </NavigationContainer>
     </Provider>
   )

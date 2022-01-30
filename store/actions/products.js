@@ -8,8 +8,8 @@ export const SET__PRODUCTS = "SET__PRODUCTS";
 
 
 export const fetchProducts = () => {
-    return async dispatch => {
-
+    return async (dispatch, getState) => {
+        const userId = getState().auth.userId;
         try {
             const response = await fetch('https://rn-shop-app-156d9-default-rtdb.firebaseio.com/products.json');
 
@@ -21,17 +21,22 @@ export const fetchProducts = () => {
             const loadedProducts = [];
 
             for(const key in resData) {
-                const {imageUrl, title, description, price} = resData[key];
+                const { imageUrl, title, description, price, ownerId } = resData[key];
                 loadedProducts.push(new Product(
                     key, 
-                    'u1', 
+                    ownerId, 
                     imageUrl, 
                     title, 
                     description, 
                     price
                 ));
             }
-            dispatch({ type: SET__PRODUCTS, payload: loadedProducts });
+            dispatch({ type: SET__PRODUCTS, 
+                       payload: { 
+                           allProducts : loadedProducts, 
+                           userProducts: loadedProducts.filter(p => p.ownerId === userId) 
+                        }
+                    });
         } catch (error) {
             throw error;
         }
@@ -62,6 +67,7 @@ export const deleteProduct = productId => {
 export const createProduct = (title, description, imageUrl, price) => {
     return async (dispatch, getState) => {
         const token = getState().auth.token;
+        const userId = getState().auth.userId;
         const response = await fetch(`https://rn-shop-app-156d9-default-rtdb.firebaseio.com/products.json?auth=${token}`, {
             method: 'POST',
             headers: {
@@ -71,7 +77,8 @@ export const createProduct = (title, description, imageUrl, price) => {
                 title,
                 description,
                 imageUrl,
-                price
+                price,
+                ownerId: userId
             })
         });
 
@@ -84,7 +91,8 @@ export const createProduct = (title, description, imageUrl, price) => {
                 title, 
                 description, 
                 imageUrl, 
-                price
+                price,
+                ownerId: userId
             }});
     }
 }
